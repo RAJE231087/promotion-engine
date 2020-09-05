@@ -31,7 +31,7 @@ public class OrderServiceImpl implements OrderService {
 			throw new ProductException(Constants.PRODUCT_TYPES_EMPTY_ERR_MSG, HttpStatus.BAD_REQUEST);
 		} else {
 			for (OrderRequest orderRequest : orderRequests) {
-				if (null != orderRequest && null != orderRequest.getProductType()) {
+				if (null != orderRequest.getProductType()) {
 					int orderCount = orderRequest.getOrderCount();
 					switch (orderRequest.getProductType()) {
 					case "A":
@@ -53,6 +53,8 @@ public class OrderServiceImpl implements OrderService {
 					default:
 						throw new ProductException(Constants.PRODUCT_TYPES_ERR_MSG, HttpStatus.BAD_REQUEST);
 					}
+				} else {
+					throw new ProductException(Constants.PRODUCT_TYPES_ERR_MSG, HttpStatus.BAD_REQUEST);
 				}
 			}
 
