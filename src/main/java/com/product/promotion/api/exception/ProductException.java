@@ -22,16 +22,8 @@ public class ProductException extends RuntimeException {
 		return errorMessage;
 	}
 
-	public void setErrorMessage(String errorMessage) {
-		this.errorMessage = errorMessage;
-	}
-
 	public HttpStatus getHttpStatus() {
 		return httpStatus;
-	}
-
-	public void setHttpStatus(HttpStatus httpStatus) {
-		this.httpStatus = httpStatus;
 	}
 
 }
