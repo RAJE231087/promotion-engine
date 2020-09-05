@@ -14,5 +14,6 @@ public final class Constants {
 	public static final int priceB = 30;
 	public static final int priceC = 20;
 	public static final int priceD = 15;
+	public static final int priceCD = 30;
 
 }

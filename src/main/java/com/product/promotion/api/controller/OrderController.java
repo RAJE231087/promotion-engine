@@ -15,7 +15,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.product.promotion.api.exception.ApiError;
 import com.product.promotion.api.exception.ProductException;
+import com.product.promotion.api.request.OrderRequest;
 import com.product.promotion.api.response.OrderResponse;
 import com.product.promotion.api.service.OrderService;
 
@@ -28,14 +30,13 @@ public class OrderController {
 	private OrderService orderService;
 
 	@PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<?> productPrice(final @Valid @RequestBody List<String> productTypes) {
+	public ResponseEntity<?> productPrice(final @Valid @RequestBody List<OrderRequest> orderRequests) {
 		try {
-			final OrderResponse orderResponse = orderService.productPrice(productTypes);
+			final OrderResponse orderResponse = orderService.productPrice(orderRequests);
 			return new ResponseEntity<OrderResponse>(orderResponse, HttpStatus.OK);
 		} catch (ProductException e) {
-			return new ResponseEntity<ProductException>(e, e.getHttpStatus());
-		} catch (Exception e) {
-			return new ResponseEntity<String>(HttpStatus.INTERNAL_SERVER_ERROR);
+			return new ResponseEntity<ApiError>(new ApiError(e.getErrorMessage(), e.getHttpStatus().value()),
+					e.getHttpStatus());
 		}
 
 	}
